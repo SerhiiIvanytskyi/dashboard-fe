@@ -1,0 +1,43 @@
+<div class="dashboard__header">
+
+  <div class="title-section">
+    <h2>Articles Dashboard</h2>
+  </div>
+
+  <div class="category-section">
+    <mat-form-field>
+      <mat-label>Category</mat-label>
+      <mat-select [(value)]="selectedCategory">
+        <mat-option value="All Categories" (click)="getAllArticles()">All Categories</mat-option>
+        <mat-option value="My articles" (click)="getArticles()">My articles</mat-option>
+        @if (search) {
+          <mat-option value="Search result">Search result</mat-option>
+        }
+        @for (option of CATEGORIES; track option) {
+          <mat-option [value]="option" (click)="getArticlesByCategory(option)">
+            {{ option }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="sort-section">
+    <mat-form-field>
+      <mat-label>Sort by</mat-label>
+      <mat-select [(value)]="selectedSortOption">
+        @for (option of SORT_OPTIONS; track option) {
+          <mat-option [value]="option" (click)="sorting(option)">
+            {{ option }}
+          </mat-option>
+        }
+
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="add-article-section">
+    <button mat-fab extended color="primary" routerLink="/add-new-article" id="add-article-btn">
+      <mat-icon>add</mat-icon>
+      Add Article
+    </button>
+  </div>
+</div>
