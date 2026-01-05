@@ -1,0 +1,60 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Edit article</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="form">
+      <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input matInput placeholder="Enter your title" [field]="editArticleForm.title" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Category</mat-label>
+        <mat-select [field]="editArticleForm.category">
+          @for (option of CATEGORIES; track option) {
+            <mat-option [value]="option">{{ option }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Text</mat-label>
+        <textarea
+          matInput
+          placeholder="Enter your text copy"
+          [field]="editArticleForm.text"
+        ></textarea>
+      </mat-form-field>
+
+      <!--      <div class="file-upload-wrapper">-->
+      <!--        <input type="file" class="file-input" (change)="onFileSelected($event)"-->
+      <!--               formControlName="imageUrl" #fileUpload accept=".png, .jpg, .jpeg">-->
+      <!--        <div class="file-upload">-->
+      <!--          <button mat-mini-fab color="primary" class="upload-btn" (click)="onClick(fileUpload)" [disabled]="disabled">-->
+      <!--            <mat-icon>attach_file</mat-icon>-->
+      <!--          </button>-->
+
+      <!--          <mat-form-field>-->
+      <!--            <input matInput placeholder="Add cover photo" [value]="fileName" [disabled]="true">-->
+      <!--          </mat-form-field>-->
+      <!--        </div>-->
+
+      <!--      </div>-->
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-raised-button routerLink="/">Cancel</button>
+    <button
+      mat-raised-button
+      id="create-article-btn"
+      color="primary"
+      [disabled]="editArticleForm().invalid()"
+      (click)="updateArticle()"
+    >
+      Publish
+    </button>
+  </mat-card-actions>
+</mat-card>

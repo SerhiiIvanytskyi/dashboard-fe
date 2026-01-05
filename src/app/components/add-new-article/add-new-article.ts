@@ -6,7 +6,7 @@ import { MatOption, MatSelect } from '@angular/material/select';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton, MatMiniFabButton } from '@angular/material/button';
 import { CATEGORIES } from '../../shared/consts';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Article } from '../../shared/interfaces';
 import { Api } from '../../shared/services/api';
 
@@ -50,9 +50,10 @@ export class AddNewArticle {
     required(schemaPath.text);
   });
 
-  apiService = inject(Api);
+  private apiService = inject(Api);
+  private router = inject(Router);
 
-  createArticle() {
+  createArticle(): void {
     const formData = this.newArticleForm;
 
     const article: Article = {
@@ -68,13 +69,10 @@ export class AddNewArticle {
 
     console.log(article);
 
-    this.apiService.addNewArticle(article).subscribe((created) => {
-      console.log(created);
+    this.apiService.addNewArticle(article).subscribe((newArticle) => {
+      console.log(newArticle);
+      this.router.navigate(['/']);
     });
-
-    // this.apiService.getAllArticles().subscribe((created) => {
-    //   console.log(created);
-    // });
   }
 
   onClick(fileUpload: HTMLInputElement) {}
