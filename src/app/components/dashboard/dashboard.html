@@ -47,13 +47,21 @@
         @for (article of articles; track article.id) {
           <mat-card>
             <mat-card-header>
-              <img
-                class="article-img"
-                [ngSrc]="article.imageUrl || DEFAULT_BACKGROUND"
-                alt="article image"
-                priority
-                fill
-              />
+              @if (article.hasImage) {
+                <img
+                  class="article-img"
+                  [src]="API + '/article/' + article.id + '/image'"
+                  alt="article image"
+                  loading="lazy"
+                />
+              } @else {
+                <img
+                  class="article-img"
+                  [src]="DEFAULT_BACKGROUND"
+                  alt="default article image"
+                  loading="lazy"
+                />
+              }
               <div class="edit-button">
                 <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu">
                   <mat-icon>more_horiz</mat-icon>

@@ -18,12 +18,12 @@ export class Api {
     return this.http.get<Article>(API + '/article/' + id);
   }
 
-  addNewArticle(newArticle: Article) {
-    return this.http.post(API + '/article', newArticle);
+  addNewArticle(formData: FormData) {
+    return this.http.post(API + '/article', formData);
   }
 
-  editArticle(updatedArticle: Article) {
-    return this.http.put(API + '/article', updatedArticle);
+  editArticle(formData: FormData) {
+    return this.http.put(API + '/article', formData);
   }
 
   deleteArticle(id: string) {

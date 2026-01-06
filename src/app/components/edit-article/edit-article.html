@@ -27,21 +27,20 @@
           [field]="editArticleForm.text"
         ></textarea>
       </mat-form-field>
+        <div class="file-upload-wrapper">
+          <input type="file" class="file-input" (change)="onFileSelected($event)"
+                 #fileUpload accept=".png, .jpg, .jpeg">
+          <div class="file-upload">
+            <button mat-mini-fab color="primary" class="upload-btn" (click)="onClick(fileUpload)" [disabled]="false">
+              <mat-icon>attach_file</mat-icon>
+            </button>
 
-      <!--      <div class="file-upload-wrapper">-->
-      <!--        <input type="file" class="file-input" (change)="onFileSelected($event)"-->
-      <!--               formControlName="imageUrl" #fileUpload accept=".png, .jpg, .jpeg">-->
-      <!--        <div class="file-upload">-->
-      <!--          <button mat-mini-fab color="primary" class="upload-btn" (click)="onClick(fileUpload)" [disabled]="disabled">-->
-      <!--            <mat-icon>attach_file</mat-icon>-->
-      <!--          </button>-->
+            <mat-form-field>
+              <input matInput placeholder="Add cover photo" [value]="fileName" [disabled]="true">
+            </mat-form-field>
+          </div>
 
-      <!--          <mat-form-field>-->
-      <!--            <input matInput placeholder="Add cover photo" [value]="fileName" [disabled]="true">-->
-      <!--          </mat-form-field>-->
-      <!--        </div>-->
-
-      <!--      </div>-->
+        </div>
     </div>
   </mat-card-content>
 

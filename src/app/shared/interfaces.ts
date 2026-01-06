@@ -12,9 +12,11 @@ export interface Article {
   category: string;
   text: string;
   date: string;
-  imageUrl?: string;
+  imageData?: File;
   userId?: string;
   userName?: string;
   userAvatar?: string;
   id?: string;
+  imageFile?: File;
+  hasImage?: boolean;
 }

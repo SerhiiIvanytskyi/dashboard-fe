@@ -36,7 +36,8 @@ import { Api } from '../../shared/services/api';
 export class AddNewArticle {
   protected readonly form = form;
   protected readonly CATEGORIES = CATEGORIES;
-  protected fileName: any;
+  selectedImage = signal<File | null>(null);
+  fileName = '';
 
   newArticleModel = signal({
     title: '',
@@ -54,28 +55,52 @@ export class AddNewArticle {
   private router = inject(Router);
 
   createArticle(): void {
-    const formData = this.newArticleForm;
+    const model = this.newArticleForm;
 
-    const article: Article = {
-      title: formData.title().value(),
-      category: formData.category().value(),
-      text: formData.text().value(),
-      date: new Date().toLocaleDateString(),
-      imageUrl: '',
-      userId: '',
-      userName: '',
-      userAvatar: '',
-    };
+    const formData = new FormData();
 
-    console.log(article);
+    formData.append(
+      'req',
+      new Blob(
+        [
+          JSON.stringify({
+            title: model.title().value(),
+            category: model.category().value(),
+            text: model.text().value(),
+            date: new Date().toLocaleDateString(),
+            userId: '',
+            userName: '',
+            userAvatar: '',
+          }),
+        ],
+        { type: 'application/json' },
+      ),
+    );
 
-    this.apiService.addNewArticle(article).subscribe((newArticle) => {
+    if (this.selectedImage()) {
+      formData.append('imageFile', this.selectedImage()!);
+    }
+
+    this.apiService.addNewArticle(formData).subscribe((newArticle) => {
       console.log(newArticle);
       this.router.navigate(['/']);
     });
   }
 
-  onClick(fileUpload: HTMLInputElement) {}
+  onClick(fileUpload: HTMLInputElement): void {
+    fileUpload.click();
+  }
 
-  onFileSelected($event: Event) {}
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+
+    if (!input.files || input.files.length === 0) {
+      return;
+    }
+
+    const file = input.files[0];
+
+    this.selectedImage.set(file);
+    this.fileName = file.name;
+  }
 }

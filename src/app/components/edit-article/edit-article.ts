@@ -35,6 +35,8 @@ import { Article } from '../../shared/interfaces';
 })
 export class EditArticle implements OnInit {
   protected readonly CATEGORIES = CATEGORIES;
+  selectedImage = signal<File | null>(null);
+  fileName = '';
 
   editArticleModel = signal({
     title: '',
@@ -73,29 +75,51 @@ export class EditArticle implements OnInit {
   }
 
   updateArticle(): void {
-    const formData = this.editArticleForm;
+    const model = this.editArticleForm;
+    const formData = new FormData();
 
-    const article: Article = {
-      title: formData.title().value(),
-      category: formData.category().value(),
-      text: formData.text().value(),
-      date: new Date().toLocaleDateString(),
-      imageUrl: '',
-      userId: '',
-      userName: '',
-      userAvatar: '',
-      id: this.route.snapshot.paramMap.get('id')!,
-    };
+    formData.append(
+      'req',
+      new Blob(
+        [
+          JSON.stringify({
+            title: model.title().value(),
+            category: model.category().value(),
+            text: model.text().value(),
+            date: new Date().toLocaleDateString(),
+            userId: '',
+            userName: '',
+            userAvatar: '',
+            id: this.route.snapshot.paramMap.get('id')!,
+          }),
+        ],
+        { type: 'application/json' },
+      ),
+    );
 
-    console.log(article);
+    if (this.selectedImage()) {
+      formData.append('imageFile', this.selectedImage()!);
+    }
 
-    this.apiService.editArticle(article).subscribe((updatedArticle) => {
-      console.log(updatedArticle);
+    this.apiService.editArticle(formData).subscribe((newArticle) => {
       this.router.navigate(['/']);
     });
   }
 
-  protected onFileSelected($event: Event) {}
+  onClick(fileUpload: HTMLInputElement): void {
+    fileUpload.click();
+  }
 
-  protected onClick(fileUpload: HTMLInputElement) {}
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+
+    if (!input.files || input.files.length === 0) {
+      return;
+    }
+
+    const file = input.files[0];
+
+    this.selectedImage.set(file);
+    this.fileName = file.name;
+  }
 }

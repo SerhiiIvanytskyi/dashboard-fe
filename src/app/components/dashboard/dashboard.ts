@@ -9,7 +9,7 @@ import { MatFormField, MatLabel } from '@angular/material/input';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton, MatFabButton, MatMiniFabButton } from '@angular/material/button';
-import { AVATAR, CATEGORIES, DEFAULT_BACKGROUND, SORT_OPTIONS } from '../../shared/consts';
+import { API, AVATAR, CATEGORIES, DEFAULT_BACKGROUND, SORT_OPTIONS } from '../../shared/consts';
 import { RouterLink } from '@angular/router';
 import { Api } from '../../shared/services/api';
 import { MatCard, MatCardContent, MatCardFooter, MatCardHeader } from '@angular/material/card';
@@ -43,6 +43,7 @@ import { NgOptimizedImage } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Dashboard implements OnInit {
+  protected readonly API = API;
   protected readonly CATEGORIES = CATEGORIES;
   protected readonly SORT_OPTIONS = SORT_OPTIONS;
   protected readonly DEFAULT_BACKGROUND = DEFAULT_BACKGROUND;

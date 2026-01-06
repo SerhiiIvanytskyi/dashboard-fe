@@ -28,7 +28,7 @@
 
       <div class="file-upload-wrapper">
         <input type="file" class="file-input" (change)="onFileSelected($event)"
-               formControlName="imageUrl" #fileUpload accept=".png, .jpg, .jpeg">
+               #fileUpload accept=".png, .jpg, .jpeg">
         <div class="file-upload">
           <button mat-mini-fab color="primary" class="upload-btn" (click)="onClick(fileUpload)" [disabled]="false">
             <mat-icon>attach_file</mat-icon>
