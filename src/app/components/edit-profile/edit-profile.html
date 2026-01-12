@@ -1,0 +1,21 @@
+<div class="form">
+
+  <h3>Change your information</h3>
+
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Enter your name" [field]="editProfileForm.name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Age</mat-label>
+    <input matInput placeholder="Enter your age" [field]="editProfileForm.age">
+    <mat-error>Please enter only numeric values.</mat-error>
+  </mat-form-field>
+
+  <section class="actions">
+    <button mat-raised-button routerLink="/">Cancel</button>
+    <button mat-raised-button color="primary" (click)="saveProfile()" [disabled]="editProfileForm().invalid()">Save</button>
+  </section>
+
+</div>

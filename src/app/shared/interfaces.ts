@@ -1,9 +1,9 @@
 export interface UserData {
   email: string;
   uid: string;
-  firstName: string;
-  lastName: string;
+  name: string;
   age: string;
+  hasAvatar: boolean;
   avatarUrl: string;
 }
 
@@ -19,4 +19,9 @@ export interface Article {
   id?: string;
   imageFile?: File;
   hasImage?: boolean;
+}
+
+export interface UserRegisterRequest {
+  email: string;
+  password: string;
 }

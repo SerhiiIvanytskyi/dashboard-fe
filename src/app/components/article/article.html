@@ -1,0 +1,27 @@
+@if (article(); as article) {
+  <div class="wrapper">
+
+    <h1>{{article.title}}</h1>
+
+    <div class="article-img">
+      @if (article.hasImage) {
+        <img
+          class="article-img"
+          [src]="API + '/article/' + article.id + '/image'"
+          alt="article image"
+          loading="lazy"
+        />
+      } @else {
+        <img
+          class="article-img"
+          [src]="DEFAULT_BACKGROUND"
+          alt="default article image"
+          loading="lazy"
+        />
+      }
+    </div>
+
+    <div class="article-text">{{article.text}}</div>
+
+  </div>
+}

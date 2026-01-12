@@ -3,4 +3,25 @@
     <mat-icon>home</mat-icon>
     Home
   </button>
+  <section class="profile-section">
+    @if (user?.hasAvatar) {
+      <img class="profile-img" [src]="user.avatarUrl"/>
+    } @else {
+      <img class="profile-img" [src]="AVATAR"/>
+    }
+    <button mat-button class="profile-menu" [matMenuTriggerFor]="menu" id="profile-btn">
+      <div class="profile-menu__btn">
+        <p>{{user?.name}}</p>
+        <mat-icon fontIcon="expand_more"></mat-icon>
+      </div>
+    </button>
+    <mat-menu #menu="matMenu">
+      @if (user) {
+        <button mat-menu-item routerLink="/edit-profile" id="profile-edit-btn">Edit Profile</button>
+        <button mat-menu-item (click)="logout()" id="profile-logout-btn">Logout</button>
+      } @else {
+        <button mat-menu-item routerLink="/login" id="profile-login-btn">Login</button>
+      }
+    </mat-menu>
+  </section>
 </div>

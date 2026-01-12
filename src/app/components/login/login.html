@@ -1,0 +1,63 @@
+<div class="wrapper">
+
+  <img class="img-side" src="images/login-img-side.png" alt="login image"/>
+
+  <div class="form-side">
+    <div class="form-wrapper">
+
+      <div class="wave-icon">
+        <img src="images/waving-hand.png" alt="waving hand"/>
+      </div>
+
+      <div class="form-title">
+        <p class="form-title__greeting">Welcome back</p>
+        <p>Sign in to manage your account.</p>
+      </div>
+
+      <div class="form">
+
+        <mat-form-field>
+          <mat-label>Email Address</mat-label>
+          <input matInput placeholder="Enter your email address" [field]="loginForm.email">
+          @if (loginForm.email().errors()) {
+            <mat-error>
+              Please enter a valid email address
+            </mat-error>
+          }
+          @if (loginForm.email().errors().length) {
+            <mat-error>
+              Email is <strong>required</strong>
+            </mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input matInput placeholder="Enter your password" [field]="loginForm.password">
+          <mat-error>Password is required</mat-error>
+        </mat-form-field>
+<!--        @if (loginForm().errors()) {-->
+<!--          <div class="error-form-message">-->
+<!--            Incorrect login or password-->
+<!--          </div>-->
+<!--        }-->
+      </div>
+
+      <button mat-raised-button color="primary" class="login-btn" (click)="login()" [disabled]="loginForm().invalid()">
+        Sign in
+      </button>
+
+<!--      <div class="separator">-->
+<!--        <div class="separator__line"></div>-->
+<!--        <div class="separator__text">Or do it via other accounts</div>-->
+<!--        <div class="separator__line"></div>-->
+<!--      </div>-->
+
+    </div>
+
+    <div class="footer">
+      Don’t have an account? <a class="footer__link" routerLink="/sign-up">Sign Up</a>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,95 @@
+<div class="wrapper">
+
+  <img class="img-side" src="images/sign-in-img-side.png" alt="sign-in image"/>
+
+  <div class="form-side">
+    <div class="form-wrapper">
+
+      <div class="form-title">
+        <p class="form-title__greeting">Get started today</p>
+        <p>Enter your details to create super account.</p>
+      </div>
+
+      <div class="form">
+
+        <div class="inline-inputs">
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Enter your name" [field]="singUpForm.name">
+            <mat-error>Name is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Age</mat-label>
+            <input matInput placeholder="Enter your age" [field]="singUpForm.age">
+          </mat-form-field>
+        </div>
+
+        <mat-form-field>
+          <mat-label>Email Address</mat-label>
+          <input matInput placeholder="Enter your email address" [field]="singUpForm.email">
+          @if (singUpForm.email().invalid()) {
+            <mat-error>
+              Please enter a valid email address
+            </mat-error>
+          }
+          @if (singUpForm.email().invalid()) {
+            <mat-error>
+              Email is <strong>required</strong>
+            </mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input matInput placeholder="Enter your password" [field]="singUpForm.password">
+          @if (singUpForm.password().invalid()) {
+            <mat-error>
+              The required length of the password is 6 characters
+            </mat-error>
+          }
+          @if (singUpForm.password().invalid()) {
+            <mat-error>
+              Password is <strong>required</strong>
+            </mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Confirm new password</mat-label>
+          <input matInput placeholder="Enter your new password again" [field]="singUpForm.passwordConfirm">
+        </mat-form-field>
+
+<!--        @if (singUpForm.passwordConfirm().invalid()) {-->
+<!--          <div class="error-form-message">-->
+<!--            Passwords must match-->
+<!--          </div>-->
+<!--        }-->
+
+        <section class="checkbox-section">
+          <mat-checkbox [field]="singUpForm.policyConfirm">
+            I agree to Product
+          </mat-checkbox>
+          <a routerLink="/terms">Terms and Policy</a>
+        </section>
+
+      </div>
+
+      <button mat-raised-button color="primary" class="login-btn" (click)="singUp()"
+              [disabled]="singUpForm().invalid()">
+        Get started now
+      </button>
+<!--      <div class="separator">-->
+<!--        <div class="separator__line"></div>-->
+<!--        <div class="separator__text">Or sign up with</div>-->
+<!--        <div class="separator__line"></div>-->
+<!--      </div>-->
+
+    </div>
+
+    <div class="footer">
+      Already have an account? <a class="footer__link" routerLink="/login">Login</a>
+    </div>
+  </div>
+
+</div>
