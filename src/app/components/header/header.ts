@@ -10,7 +10,7 @@ import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { AVATAR } from '../../shared/consts';
-import { UserData } from '../../shared/interfaces';
+import { UserData, UserTokenData } from '../../shared/interfaces';
 import { Auth } from '../../shared/services/auth';
 import { User } from '../../shared/services/user';
 
@@ -23,7 +23,7 @@ import { User } from '../../shared/services/user';
 })
 export class Header {
   protected readonly AVATAR = AVATAR;
-  user!: UserData;
+  user!: UserTokenData;
 
   private auth = inject(Auth);
   private cdr = inject(ChangeDetectorRef);
@@ -31,17 +31,18 @@ export class Header {
 
   constructor() {
     effect(() => {
-      this.getUserData();
+      this.getCurrentUserData();
     });
   }
 
-  getUserData(): void {
+  getCurrentUserData(): void {
     this.user = this.userService.getUserData();
+    console.log(this.user);
     this.cdr.detectChanges();
   }
 
   logout(): void {
     this.auth.logout();
-    this.getUserData();
+    this.getCurrentUserData();
   }
 }

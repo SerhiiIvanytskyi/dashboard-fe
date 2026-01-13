@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { Field, form, required } from '@angular/forms/signals';
 import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
@@ -7,8 +7,9 @@ import { MatIcon } from '@angular/material/icon';
 import { MatButton, MatMiniFabButton } from '@angular/material/button';
 import { CATEGORIES } from '../../shared/consts';
 import { Router, RouterLink } from '@angular/router';
-import { Article } from '../../shared/interfaces';
+import { UserTokenData } from '../../shared/interfaces';
 import { Api } from '../../shared/services/api';
+import { User } from '../../shared/services/user';
 
 @Component({
   selector: 'app-add-new-article',
@@ -33,11 +34,12 @@ import { Api } from '../../shared/services/api';
   styleUrl: './add-new-article.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddNewArticle {
+export class AddNewArticle implements OnInit {
   protected readonly form = form;
   protected readonly CATEGORIES = CATEGORIES;
   selectedImage = signal<File | null>(null);
   fileName = '';
+  user!: UserTokenData;
 
   newArticleModel = signal({
     title: '',
@@ -53,6 +55,15 @@ export class AddNewArticle {
 
   private apiService = inject(Api);
   private router = inject(Router);
+  private userService = inject(User);
+
+  ngOnInit(): void {
+    this.getCurrentUserData();
+  }
+
+  getCurrentUserData(): void {
+    this.user = this.userService.getUserData();
+  }
 
   createArticle(): void {
     const model = this.newArticleForm;
@@ -68,8 +79,8 @@ export class AddNewArticle {
             category: model.category().value(),
             text: model.text().value(),
             date: new Date().toLocaleDateString(),
-            userId: '',
-            userName: '',
+            userId: this.user?.id || '',
+            userName: this.user?.name || '',
             userAvatar: '',
           }),
         ],

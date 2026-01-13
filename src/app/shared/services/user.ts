@@ -14,7 +14,6 @@ export class User {
   private http = inject(HttpClient);
 
   getUserData() {
-    console.log('getUserData');
     const token = this.auth.getToken();
     this.user.set(parseJwt(token));
     console.log(token);

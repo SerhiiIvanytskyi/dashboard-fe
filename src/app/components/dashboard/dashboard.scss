@@ -1,6 +1,7 @@
 .dashboard {
   width: 100%;
   min-width: 400px;
+  padding-bottom: 30px;
 
   &__header {
     min-height: 100px;
@@ -35,6 +36,10 @@
 
 .title-section .category-section .sort-section .add-article-section{
   height: 100%;
+}
+
+.title-section {
+  padding-bottom: 15px;
 }
 
 .add-article-section {

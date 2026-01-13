@@ -4,11 +4,12 @@
     Home
   </button>
   <section class="profile-section">
-    @if (user?.hasAvatar) {
-      <img class="profile-img" [src]="user.avatarUrl"/>
-    } @else {
-      <img class="profile-img" [src]="AVATAR"/>
-    }
+<!--    @if (user?.hasAvatar) {-->
+<!--      <img class="profile-img" [src]="user.avatarUrl"/>-->
+<!--    } @else {-->
+<!--      <img class="profile-img" [src]="AVATAR"/>-->
+<!--    }-->
+    <img class="profile-img" [src]="AVATAR"/>
     <button mat-button class="profile-menu" [matMenuTriggerFor]="menu" id="profile-btn">
       <div class="profile-menu__btn">
         <p>{{user?.name}}</p>

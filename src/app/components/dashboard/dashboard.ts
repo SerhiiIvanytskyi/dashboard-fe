@@ -14,8 +14,9 @@ import { RouterLink } from '@angular/router';
 import { Api } from '../../shared/services/api';
 import { MatCard, MatCardContent, MatCardFooter, MatCardHeader } from '@angular/material/card';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { Article } from '../../shared/interfaces';
+import { Article, UserTokenData } from '../../shared/interfaces';
 import { NgOptimizedImage } from '@angular/common';
+import { User } from '../../shared/services/user';
 
 @Component({
   selector: 'app-dashboard',
@@ -56,19 +57,27 @@ export class Dashboard implements OnInit {
 
   articles: Article[] = [];
 
-  apiService = inject(Api);
-  cdr = inject(ChangeDetectorRef);
+  currentUser!: UserTokenData;
+
+  private apiService = inject(Api);
+  private userService = inject(User);
+  private cdr = inject(ChangeDetectorRef);
 
   ngOnInit(): void {
+    this.getCurrentUserData();
     this.getAllArticles();
   }
 
-  protected getAllArticles(): void {
+  getAllArticles(): void {
     this.apiService.getAllArticles().subscribe((articles) => {
       this.articles = articles;
       console.log(articles);
       this.cdr.detectChanges();
     });
+  }
+
+  getCurrentUserData(): void {
+    this.currentUser = this.userService.getUserData();
   }
 
   protected getArticles() {}

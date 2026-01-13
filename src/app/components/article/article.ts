@@ -29,6 +29,7 @@ export class Article implements OnInit {
     if (id) {
       this.apiService.getArticle(id).subscribe((article) => {
         this.article.set(article);
+        console.log(article);
       });
     }
   }
